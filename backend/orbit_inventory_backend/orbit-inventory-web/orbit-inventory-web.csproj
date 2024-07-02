@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>orbit_inventory_web</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\orbit-inventory-application\orbit-inventory-application.csproj" />
+      <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
+      <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+    </ItemGroup>
+
+</Project>
