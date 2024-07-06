@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-data", "orb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-web", "orbit-inventory-web\orbit-inventory-web.csproj", "{156E5951-FC30-4FC2-A2BE-E13CFF92D289}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-core", "orbit-inventory-core\orbit-inventory-core.csproj", "{817452F4-D857-479A-B1EF-8402C8B67104}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{156E5951-FC30-4FC2-A2BE-E13CFF92D289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{156E5951-FC30-4FC2-A2BE-E13CFF92D289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{156E5951-FC30-4FC2-A2BE-E13CFF92D289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817452F4-D857-479A-B1EF-8402C8B67104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817452F4-D857-479A-B1EF-8402C8B67104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817452F4-D857-479A-B1EF-8402C8B67104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817452F4-D857-479A-B1EF-8402C8B67104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

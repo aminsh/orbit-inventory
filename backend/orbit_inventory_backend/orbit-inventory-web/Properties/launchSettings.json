@@ -9,29 +9,15 @@
     }
   },
   "profiles": {
-    "http": {
+    "development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5166",
+      "applicationUrl": "http://localhost:7070",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7202;http://localhost:5166",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PG_CONNECTION": "Host=localhost;Port=1000;Database=db-orbit-inventory_3;Username=postgres;Password=P@ssw0rd",
+        "Authentication_Private_key": "bAafd@A7d9#@F4*V!LHZs#ebKQrkE6pad2f3kj34c3dXy@"
       }
     }
   }

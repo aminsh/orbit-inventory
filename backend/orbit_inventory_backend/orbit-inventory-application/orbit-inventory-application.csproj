@@ -8,7 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
       <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.EntityFrameworkCore">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\8.0.6\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
