@@ -9,7 +9,6 @@ public interface IUnitOfWork
 
 public class UnitOfWork(OrbitDbContext orbitDbContext): IUnitOfWork
 {
-    
     public async Task Commit()
     {
         await orbitDbContext.SaveChangesAsync();
