@@ -1,4 +1,4 @@
-namespace orbit_inventory_domain.User;
+namespace orbit_inventory_domain.UserSection;
 
 public class UserDto
 {

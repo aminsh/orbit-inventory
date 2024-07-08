@@ -1,12 +1,11 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using orbit_inventory_domain.Core;
-using orbit_inventory_domain.User;
 
-namespace orbit_inventory_domain.user;
+namespace orbit_inventory_domain.UserSection;
 
 public class UserService(
-    IRepository<User> userRepository
+    IGeneralRepository<User, int> userEntityRepository
 )
 {
     public Task Create(UserDto dto)
@@ -21,13 +20,13 @@ public class UserService(
             Password = GetHashPassword(dto.Password, salt)
         };
 
-        userRepository.Add(user);
+        userEntityRepository.Add(user);
         return Task.FromResult(user.Id);
     }
 
-    public async Task<User> Signin(UserSigninDto dto)
+    public async Task<UserSection.User> Signin(UserSigninDto dto)
     {
-        var entity = await userRepository.FindOne(u => u.Email.ToLower() == dto.Email.ToLower());
+        var entity = await userEntityRepository.FindOne(u => u.Email.ToLower() == dto.Email.ToLower());
         
         if (entity == null)
             throw new UnauthorizedAccessException();
@@ -40,9 +39,9 @@ public class UserService(
         return entity;
     }
 
-    public Task<User?> GetUser(int id)
+    public Task<UserSection.User?> GetUser(int id)
     {
-        return userRepository.FindById(id);
+        return userEntityRepository.FindById(id);
     }
 
     private static string GetHashPassword(string password, byte[] salt)

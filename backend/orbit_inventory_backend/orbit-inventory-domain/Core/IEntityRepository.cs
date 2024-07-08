@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace orbit_inventory_domain.Core;
 
-public interface IRepository<TEntity> where TEntity : Entity
+public interface IEntityRepository<TEntity> where TEntity : Entity
 {
     IQueryable<TEntity> Find();
 

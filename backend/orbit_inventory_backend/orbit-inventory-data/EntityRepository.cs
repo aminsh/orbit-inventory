@@ -4,7 +4,7 @@ using orbit_inventory_domain.Core;
 
 namespace orbit_inventory_data;
 
-public class Repository<TEntity>(OrbitDbContext context) : IRepository<TEntity>
+public class EntityRepository<TEntity>(OrbitDbContext context) : IEntityRepository<TEntity>
     where TEntity : Entity
 {
     public IQueryable<TEntity> Find()

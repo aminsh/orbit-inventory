@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using orbit_inventory_domain.user;
+using orbit_inventory_domain.UserSection;
 
 namespace orbit_inventory_web.Authentication;
 

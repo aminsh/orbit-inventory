@@ -7,11 +7,12 @@ using orbit_inventory_application;
 using orbit_inventory_core.Type;
 using orbit_inventory_data;
 using orbit_inventory_domain.Core;
-using orbit_inventory_domain.user;
-using orbit_inventory_domain.User;
+using orbit_inventory_domain.UserSection;
 using orbit_inventory_web.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<OrbitDbContext>(option =>
     option
@@ -22,7 +23,7 @@ builder.Services.AddDbContext<OrbitDbContext>(option =>
 );
 builder.Services.AddSingleton<IOrbitRequestContext, OrbitHttpRequestContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 builder.Services.AddScoped<UserService>();
 builder.Services.AddAuthentication(au =>
 {
@@ -44,11 +45,16 @@ builder.Services.AddTransient<OrbitAuthenticationService>();
 var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
 
 app.Use(async (context, next) =>
 {
-    var requestContext = context.RequestServices.GetService<IOrbitRequestContext>();
-    requestContext!.UserId = Convert.ToInt32(context.User.Claims.FirstOrDefault(cl => cl.Type == "Id")?.Value);
+    if (context.User.Identity is { IsAuthenticated: true })
+    {
+        var requestContext = context.RequestServices.GetService<IOrbitRequestContext>();
+        requestContext!.UserId = Convert.ToInt32(context.User.Claims.FirstOrDefault(cl => cl.Type == "Id")?.Value);
+    }
+    
     await next.Invoke();
 });
 

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using orbit_inventory_domain.user;
+using orbit_inventory_domain.UserSection;
 
 namespace orbit_inventory_data.Configuration;
 

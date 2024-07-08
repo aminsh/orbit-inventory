@@ -1,9 +1,10 @@
 using orbit_inventory_domain.Core;
 
-namespace orbit_inventory_domain.user;
+namespace orbit_inventory_domain.UserSection;
 
-public class User : Entity
+public class User
 {
+    public int Id { get; set; }
     public string Email { get; set; }
     public string Name { get; set; }
     public string Password { get; set; }
