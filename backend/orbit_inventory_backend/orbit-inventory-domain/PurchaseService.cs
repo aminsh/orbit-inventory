@@ -10,8 +10,7 @@ public class PurchaseService(
     IGeneralRepository<User, int> userRepository,
     IEntityRepository<Purchase> purchaseRepository,
     IEntityRepository<Product> productRepository,
-    IEntityRepository<Supplier> supplierRepository,
-    InventoryService inventoryService
+    IEntityRepository<Supplier> supplierRepository
 )
 {
     public async Task Create(PurchaseDto dto)
@@ -33,15 +32,10 @@ public class PurchaseService(
                     p => p.Id,
                     (line, product) => new PurchaseLine
                     {
-                        Product = product,
                         Description = line.Description,
-                        Quantity = line.Quantity,
                         UnitPrice = line.UnitPrice
                     })
                 .ToList(),
-            InventoryItems = inventoryService.CreateMany(supplier, user, )
         };
-        
-        
     }
 }
