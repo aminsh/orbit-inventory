@@ -16,7 +16,7 @@
       "applicationUrl": "http://localhost:7070",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "PG_CONNECTION": "Host=localhost;Port=1000;Database=db-orbit-inventory_3;Username=postgres;Password=P@ssw0rd",
+        "PG_CONNECTION": "Host=localhost;Port=2011;Database=db-orbit-inventory;Username=postgres;Password=P@ssw0rd",
         "Authentication_Private_key": "bAafd@A7d9#@F4*V!LHZs#ebKQrkE6pad2f3kj34c3dXy@"
       }
     }
