@@ -1,25 +1,27 @@
 using Microsoft.EntityFrameworkCore;
-using orbit_inventory_core.Type;
-using orbit_inventory_domain.Core;
-using orbit_inventory_domain.UserSection;
+using orbit_inventory_core.Domain;
+using orbit_inventory_core.Exception;
 
 namespace orbit_inventory_domain;
 
 public class PurchaseService(
-    IOrbitRequestContext orbitRequestContext,
-    IGeneralRepository<User, int> userRepository,
-    IEntityRepository<Purchase> purchaseRepository,
-    IEntityRepository<Product> productRepository,
-    IEntityRepository<Supplier> supplierRepository
+    IRepository<Purchase> purchaseRepository,
+    IRepository<Product> productRepository,
+    IRepository<Supplier> supplierRepository,
+    InventoryService inventoryService
 )
 {
     public async Task Create(PurchaseDto dto)
     {
-        var user = await userRepository.FindById(orbitRequestContext.UserId);
         var supplier = await supplierRepository.FindById(dto.SupplierId);
-        
-        var products = await productRepository.Find()
-            .Where(e => dto.Lines.Select(ln => ln.ProductId).Contains(e.Id))
+
+        if (supplier == null)
+            throw new NotFoundException();
+
+        var productIds = dto.Lines.Select(ln => ln.ProductId).ToList();
+
+        var products = await productRepository.Query
+            .Where(e => productIds.Contains(e.Id))
             .ToListAsync();
 
         var entity = new Purchase
@@ -32,10 +34,14 @@ public class PurchaseService(
                     p => p.Id,
                     (line, product) => new PurchaseLine
                     {
+                        Product = product,
                         Description = line.Description,
                         UnitPrice = line.UnitPrice
                     })
                 .ToList(),
         };
+        
+        inventoryService.CreateMany(entity);
+        purchaseRepository.Add(entity);
     }
 }

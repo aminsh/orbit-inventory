@@ -1,4 +1,5 @@
-﻿using orbit_inventory_data;
+﻿using orbit_inventory_core.Data;
+using orbit_inventory_data;
 
 namespace orbit_inventory_application;
 

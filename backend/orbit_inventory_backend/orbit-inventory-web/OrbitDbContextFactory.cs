@@ -10,10 +10,10 @@ public class OrbitDbContextFactory : IDesignTimeDbContextFactory<OrbitDbContext>
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("Properties/launchSettings.json")
+            .AddJsonFile("appsettings.json")
             .Build();
 
-        var connectionString = configuration.GetSection("profiles:default:environmentVariables:PG_CONNECTION").Value;
+        var connectionString = configuration.GetConnectionString("Postgres");
 
         var optionsBuilder = new DbContextOptionsBuilder<OrbitDbContext>();
         optionsBuilder.UseNpgsql(

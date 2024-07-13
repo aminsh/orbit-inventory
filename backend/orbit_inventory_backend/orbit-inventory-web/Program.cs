@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using orbit_inventory_application;
+using orbit_inventory_core.Auth;
+using orbit_inventory_core.Data;
+using orbit_inventory_core.Domain;
+using orbit_inventory_core.Exception;
 using orbit_inventory_core.Type;
 using orbit_inventory_data;
-using orbit_inventory_domain.Core;
-using orbit_inventory_domain.UserSection;
 using orbit_inventory_web.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +21,13 @@ builder.Services.AddDbContext<OrbitDbContext>(option =>
         .UseNpgsql(
             Environment.GetEnvironmentVariable("PG_CONNECTION")
         )
+        .UseLazyLoadingProxies()
         .UseSnakeCaseNamingConvention()
 );
 builder.Services.AddSingleton<IOrbitRequestContext, OrbitHttpRequestContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddAuthentication(au =>
 {
     au.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -52,16 +55,17 @@ app.Use(async (context, next) =>
     if (context.User.Identity is { IsAuthenticated: true })
     {
         var requestContext = context.RequestServices.GetService<IOrbitRequestContext>();
-        requestContext!.UserId = Convert.ToInt32(context.User.Claims.FirstOrDefault(cl => cl.Type == "Id")?.Value);
+        
+        requestContext!.UserId = Convert.ToInt32(context.User.Claims.First(cl => cl.Type == "Id").Value);
     }
     
     await next.Invoke();
 });
 
 app.MapPost("/signup", async (
-    UserService userService,
+    AuthenticationService userService,
     IUnitOfWork unitOfWork,
-    [FromBody] UserDto dto
+    [FromBody] SignupDto dto
 ) =>
 {
     await userService.Create(dto);
@@ -69,18 +73,22 @@ app.MapPost("/signup", async (
 });
 
 app.MapPost("/signin", async (
-    UserService userService,
+    AuthenticationService userService,
     OrbitAuthenticationService orbitAuthenticationService,
-    [FromBody] UserSigninDto dto
+    [FromBody] SigninDto dto
 ) =>
 {
     var user = await userService.Signin(dto);
     return orbitAuthenticationService.Create(user);
 });
 
-app.MapGet("/me", async (UserService userService, IOrbitRequestContext requestContext) =>
+app.MapGet("/me", async (AuthenticationService userService, IOrbitRequestContext requestContext) =>
 {
     var user = await userService.GetUser(requestContext.UserId);
+
+    if (user == null)
+        throw new NotFoundException();
+    
     return new
     {
         user.Id,

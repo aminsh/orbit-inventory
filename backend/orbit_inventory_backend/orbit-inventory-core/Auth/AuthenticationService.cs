@@ -1,14 +1,15 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using orbit_inventory_domain.Core;
+using orbit_inventory_core.Domain;
+using orbit_inventory_core.Exception;
 
-namespace orbit_inventory_domain.UserSection;
+namespace orbit_inventory_core.Auth;
 
-public class UserService(
-    IGeneralRepository<User, int> userEntityRepository
+public class AuthenticationService(
+    IRepository<User> userRepository
 )
 {
-    public Task Create(UserDto dto)
+    public Task Create(SignupDto dto)
     {
         var salt = GenerateSalt();
         
@@ -20,13 +21,13 @@ public class UserService(
             Password = GetHashPassword(dto.Password, salt)
         };
 
-        userEntityRepository.Add(user);
+        userRepository.Add(user);
         return Task.FromResult(user.Id);
     }
 
-    public async Task<UserSection.User> Signin(UserSigninDto dto)
+    public async Task<User> Signin(SigninDto dto)
     {
-        var entity = await userEntityRepository.FindOne(u => u.Email.ToLower() == dto.Email.ToLower());
+        var entity = await userRepository.FindOne(u => u.Email.ToLower() == dto.Email.ToLower());
         
         if (entity == null)
             throw new UnauthorizedAccessException();
@@ -39,9 +40,14 @@ public class UserService(
         return entity;
     }
 
-    public Task<UserSection.User?> GetUser(int id)
+    public async Task<User?> GetUser(int id)
     {
-        return userEntityRepository.FindById(id);
+        var entity = await userRepository.FindById(id);
+
+        if (entity == null)
+            throw new NotFoundException();
+
+        return entity;
     }
 
     private static string GetHashPassword(string password, byte[] salt)

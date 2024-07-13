@@ -1,30 +1,17 @@
-using orbit_inventory_domain.UserSection;
-
 namespace orbit_inventory_domain;
 
 public class InventoryService
 {
-    public async Task<IEnumerable<Inventory>> CreateMany(
-        Supplier supplier,
-        User creator,
-        IEnumerable<IInventoryCreateMany> items
-    )
+    public void CreateMany(Purchase purchase)
     {
-        return items
-            .Select(it => Enumerable.Range(0, it.Quantity).Select(_ => new Inventory
+        foreach (var line in purchase.Lines)
+        {
+            line.Items = Enumerable.Range(0, line.Quantity).Select(_ => new Inventory
             {
-                Supplier = supplier,
-                CreatedBy = creator,
-                Product = it.Product,
+                Supplier = purchase.Supplier,
+                Product = line.Product,
                 Available = null
-            }))
-            .SelectMany(it => it)
-            .ToList();
+            }).ToList();
+        }
     }
-}
-
-public interface IInventoryCreateMany
-{
-    public Product Product { get; set; }
-    public int Quantity { get; set; }
 }

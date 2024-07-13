@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using orbit_inventory_data.Configuration;
 
 namespace orbit_inventory_data;
 
@@ -8,6 +7,7 @@ public class OrbitDbContext(DbContextOptions<OrbitDbContext> options) : DbContex
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+        modelBuilder.HasPostgresExtension("uuid-ossp");
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrbitDbContext).Assembly);
     }
 }

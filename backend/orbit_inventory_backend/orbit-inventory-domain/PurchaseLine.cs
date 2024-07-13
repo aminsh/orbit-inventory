@@ -1,11 +1,11 @@
-using orbit_inventory_domain.Core;
-
 namespace orbit_inventory_domain;
 
-public class PurchaseLine : IValueObject
+public class PurchaseLine
 {
+    public int Id { get; set; }
+    public virtual Product Product { get; set; }
     public string Description { get; set; }
     public double UnitPrice { get; set; }
-
-    public ICollection<Inventory> InventoryItems { get; set; }
+    public int Quantity { get; set; }
+    public virtual ICollection<Inventory>? Items { get; set; }
 }

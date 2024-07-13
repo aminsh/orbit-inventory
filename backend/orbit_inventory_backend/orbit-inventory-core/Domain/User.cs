@@ -1,10 +1,10 @@
-using orbit_inventory_domain.Core;
+namespace orbit_inventory_core.Domain;
 
-namespace orbit_inventory_domain.UserSection;
-
-public class User
+public class User : IEntity, IHaveTimestamps
 {
     public int Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public string Email { get; set; }
     public string Name { get; set; }
     public string Password { get; set; }
