@@ -8,7 +8,7 @@ using orbit_inventory_core.Auth;
 using orbit_inventory_core.Data;
 using orbit_inventory_core.Domain;
 using orbit_inventory_core.Exception;
-using orbit_inventory_core.Type;
+using orbit_inventory_core.Request;
 using orbit_inventory_data;
 using orbit_inventory_web.Authentication;
 

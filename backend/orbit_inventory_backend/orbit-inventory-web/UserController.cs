@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using orbit_inventory_application;
 using orbit_inventory_core.Auth;
 using orbit_inventory_core.Exception;
-using orbit_inventory_core.Type;
+using orbit_inventory_core.Request;
 using orbit_inventory_web.Authentication;
 
 namespace orbit_inventory_web;
