@@ -2,14 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>orbit_inventory_domain</RootNamespace>
+        <RootNamespace>orbit_inventory_security</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.6" />
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
@@ -17,9 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.EntityFrameworkCore">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\8.0.6\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-      </Reference>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     </ItemGroup>
 
 </Project>

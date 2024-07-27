@@ -35,4 +35,10 @@ public static class EntityConfigurationExtensions
         
         return builder;
     }
+    
+    public static EntityTypeBuilder<TValueObject> UseDefaultValueObjectConfig<TValueObject>(this EntityTypeBuilder<TValueObject> builder) where TValueObject: class, IValueObject
+    {
+        builder.Ignore(p => p.IsDeleted);
+        return builder;
+    }
 }
