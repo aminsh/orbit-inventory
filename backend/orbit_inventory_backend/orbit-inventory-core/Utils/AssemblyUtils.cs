@@ -11,7 +11,7 @@ public static class AssemblyUtils
         if (assemblyFolder == null)
             throw new ArgumentException(null, nameof(name));
         
-        var files = Directory.GetFiles(assemblyFolder, "*.dll");
+        var files = Directory.GetFiles(assemblyFolder, $"*{name}.dll");
 
         var fileName = files.FirstOrDefault(e => e.Contains(name));
 
