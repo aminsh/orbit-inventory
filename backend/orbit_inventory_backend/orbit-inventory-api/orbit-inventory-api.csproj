@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
       <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+      <ProjectReference Include="..\orbit-inventory-read\orbit-inventory-read.csproj" />
       <ProjectReference Include="..\orbit-inventory-security\orbit-inventory-security.csproj" />
     </ItemGroup>
 

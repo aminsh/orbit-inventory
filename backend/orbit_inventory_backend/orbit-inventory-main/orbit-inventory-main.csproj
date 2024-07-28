@@ -17,6 +17,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.6" />
+      <PackageReference Include="NEST" Version="7.17.5" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
       <PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
@@ -28,6 +29,7 @@
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
       <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
       <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+      <ProjectReference Include="..\orbit-inventory-read\orbit-inventory-read.csproj" />
       <ProjectReference Include="..\orbit-inventory-security\orbit-inventory-security.csproj" />
     </ItemGroup>
 
