@@ -22,7 +22,7 @@ public class OrbitAuthenticationService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             SigningCredentials = credentials,
-            Expires = DateTime.UtcNow.AddHours(1),
+            Expires = DateTime.UtcNow.AddDays(1),
             Subject = GenerateClaims(authenticationUser)
         };
 

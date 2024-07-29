@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
       <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
@@ -25,7 +26,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\orbit-inventory-api\orbit-inventory-api.csproj" />
-      <ProjectReference Include="..\orbit-inventory-application\orbit-inventory-application.csproj" />
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
       <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
       <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />

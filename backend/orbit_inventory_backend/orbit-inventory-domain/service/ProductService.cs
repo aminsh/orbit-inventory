@@ -17,7 +17,7 @@ public class ProductService(
         var isUpcDuplicated = await productRepository.Query.AnyAsync(p => p.Upc == dto.Upc);
 
         if (isUpcDuplicated)
-            throw new BadRequestException("the_upc_is_duplicated");
+            throw new BadRequestException("");
 
         var entity = new Product
         {
