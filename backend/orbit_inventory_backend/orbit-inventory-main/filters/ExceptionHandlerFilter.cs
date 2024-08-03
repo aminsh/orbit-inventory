@@ -17,6 +17,7 @@ public class ExceptionHandlerFilter : IExceptionFilter
         context.Result = context.Exception switch
         {
             NotFoundException _ => new NotFoundObjectResult(""),
+            UnauthorizedAccessException => new UnauthorizedObjectResult(""),
             BadRequestException exception => new BadRequestObjectResult(exception.Messages),
             _ => new ObjectResult(null) { StatusCode = (int?)HttpStatusCode.InternalServerError }
         };

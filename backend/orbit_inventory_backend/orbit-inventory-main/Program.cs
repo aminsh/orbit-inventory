@@ -10,6 +10,14 @@ using orbit_inventory_read;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", build =>
+{
+    build.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
+
 builder.Services.AddControllers(options =>
 {
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -30,6 +38,7 @@ app.UseShared();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors("MyPolicy");
 
 app.Use(async (context, next) =>
 {
