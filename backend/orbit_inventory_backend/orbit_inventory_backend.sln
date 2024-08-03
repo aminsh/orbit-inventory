@@ -2,13 +2,19 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-domain", "orbit-inventory-domain\orbit-inventory-domain.csproj", "{6EADA9D5-BCDA-486F-B82F-A25B8BF2DEF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-application", "orbit-inventory-application\orbit-inventory-application.csproj", "{9365FF83-D563-4700-ACD1-621EBCB76508}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-data", "orbit-inventory-data\orbit-inventory-data.csproj", "{36D2A69F-FA04-4293-A891-3863F8D88D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-web", "orbit-inventory-web\orbit-inventory-web.csproj", "{156E5951-FC30-4FC2-A2BE-E13CFF92D289}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-main", "orbit-inventory-main\orbit-inventory-main.csproj", "{156E5951-FC30-4FC2-A2BE-E13CFF92D289}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-core", "orbit-inventory-core\orbit-inventory-core.csproj", "{817452F4-D857-479A-B1EF-8402C8B67104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-dto", "orbit-inventory-dto\orbit-inventory-dto.csproj", "{AAAD9D25-3431-457F-B651-76375A9CE5E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-api", "orbit-inventory-api\orbit-inventory-api.csproj", "{F81169BA-E2B9-415F-B72A-A46F6DD816E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-security", "orbit-inventory-security\orbit-inventory-security.csproj", "{90962465-61B5-45E4-90E2-D86E526756DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbit-inventory-read", "orbit-inventory-read\orbit-inventory-read.csproj", "{00A8CE6D-C93C-40A9-A092-3F622DE559CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +26,6 @@ Global
 		{6EADA9D5-BCDA-486F-B82F-A25B8BF2DEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EADA9D5-BCDA-486F-B82F-A25B8BF2DEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EADA9D5-BCDA-486F-B82F-A25B8BF2DEF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9365FF83-D563-4700-ACD1-621EBCB76508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9365FF83-D563-4700-ACD1-621EBCB76508}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9365FF83-D563-4700-ACD1-621EBCB76508}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9365FF83-D563-4700-ACD1-621EBCB76508}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36D2A69F-FA04-4293-A891-3863F8D88D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36D2A69F-FA04-4293-A891-3863F8D88D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36D2A69F-FA04-4293-A891-3863F8D88D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +38,21 @@ Global
 		{817452F4-D857-479A-B1EF-8402C8B67104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{817452F4-D857-479A-B1EF-8402C8B67104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{817452F4-D857-479A-B1EF-8402C8B67104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAAD9D25-3431-457F-B651-76375A9CE5E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAAD9D25-3431-457F-B651-76375A9CE5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAAD9D25-3431-457F-B651-76375A9CE5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAAD9D25-3431-457F-B651-76375A9CE5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81169BA-E2B9-415F-B72A-A46F6DD816E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81169BA-E2B9-415F-B72A-A46F6DD816E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81169BA-E2B9-415F-B72A-A46F6DD816E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81169BA-E2B9-415F-B72A-A46F6DD816E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90962465-61B5-45E4-90E2-D86E526756DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90962465-61B5-45E4-90E2-D86E526756DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90962465-61B5-45E4-90E2-D86E526756DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90962465-61B5-45E4-90E2-D86E526756DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A8CE6D-C93C-40A9-A092-3F622DE559CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A8CE6D-C93C-40A9-A092-3F622DE559CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A8CE6D-C93C-40A9-A092-3F622DE559CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A8CE6D-C93C-40A9-A092-3F622DE559CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

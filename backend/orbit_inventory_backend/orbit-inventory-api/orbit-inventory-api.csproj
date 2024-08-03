@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>orbit_inventory_api</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
+      <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+      <ProjectReference Include="..\orbit-inventory-read\orbit-inventory-read.csproj" />
+      <ProjectReference Include="..\orbit-inventory-security\orbit-inventory-security.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    </ItemGroup>
+
+</Project>

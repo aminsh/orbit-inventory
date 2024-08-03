@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>orbit_inventory_read</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
+      <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
+      <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NEST" Version="7.17.5" />
+    </ItemGroup>
+
+</Project>

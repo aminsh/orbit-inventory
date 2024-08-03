@@ -2,15 +2,15 @@ namespace orbit_inventory_core.Exception;
 
 public class BadRequestException: System.Exception
 {
-    private readonly IEnumerable<string> _message;
+    public readonly IEnumerable<string> Messages;
     
     public BadRequestException(string message)
     {
-        _message = new[] { message };
+        Messages = new[] { message };
     }
 
     public BadRequestException(IEnumerable<string> message)
     {
-        _message = message;
+        Messages = message;
     }
 }

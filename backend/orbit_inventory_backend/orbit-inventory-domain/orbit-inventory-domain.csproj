@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
+      <ProjectReference Include="..\orbit-inventory-dto\orbit-inventory-dto.csproj" />
     </ItemGroup>
 
     <ItemGroup>
