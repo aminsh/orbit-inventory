@@ -1,8 +1,9 @@
 import { HttpRequest, HttpResponse, HttpStatus } from '../type'
+import { configuration } from '../configure.ts'
 
 export const httpRequest = async <TResponse extends object | null, TBody extends object | null>(args: HttpRequest<TBody>)
   : Promise<HttpResponse<TResponse>> => {
-  const result = await fetch(`${process.env.REACT_APP_API_BASE_URL}/v1/${args.url}`, {
+  const result = await fetch(`${configuration.baseUrl}/v1/${args.url}`, {
     headers: {
       'Content-Type': 'application/json',
     },
