@@ -1,14 +1,14 @@
-let _dictionary: Record<string, string> = {}
+import { configuration } from './configure.ts'
 
 export const translate = (...keys: string[]) => {
   return keys.map(resolve).join(' ')
 }
 
-export const setDictionary =  (dictionary: Record<string, string>) => {
-  _dictionary = dictionary
+export const setDefaultDictionary = (name: string) => {
+  configuration.defaultDictionary = name
 }
 
 const resolve = (key: string) => {
-  const value = _dictionary[key]
+  const value = configuration.dictionaries[configuration.defaultDictionary][key]
   return value || key
 }

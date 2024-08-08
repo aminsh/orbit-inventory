@@ -5,7 +5,7 @@ export type Route = {
   privateRoutes: RouteItem[]
 }
 
-type RouteItem = {
+export type RouteItem = {
   path: string
   component: React.ReactNode
 }

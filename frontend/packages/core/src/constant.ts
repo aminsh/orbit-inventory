@@ -1,0 +1,7 @@
+export const AUTHENTICATION_TOKEN = 'authentication_token'
+export const CALLBACK_URL = 'callbackUrl'
+export const CALLBACK = 'callback'
+export const ACCESS_TOKEN = 'access_token'
+export const TOKEN_TYPE = 'token_type'
+export const STATE = 'state'
+export const DEFAULT_PATH = '/'
