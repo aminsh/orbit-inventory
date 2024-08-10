@@ -4,19 +4,24 @@ import { useEffect } from 'react'
 import { DEFAULT_PATH, ORIGINAL_PATH } from '../../constant'
 import { MainLayout } from '@orbit/core'
 import { menuItems } from '../../config/menuItems.tsx'
+import authenticatedUserApi from '../../store/module/user/authenticatedUserApi'
 
 export const PrivateLayout = () => {
-  const {isAuthenticated} = useAuthentication()
+  const { isAuthenticated } = useAuthentication()
   const navigate = useNavigate()
   const location = useLocation()
+  const [fetchAuthenticatedUser] = authenticatedUserApi.useLazyFetchUserQuery()
 
-  const onOpen = () => {
-    if(isAuthenticated())
+  const onOpen = async () => {
+    if (isAuthenticated()) {
+      await fetchAuthenticatedUser()
       return
+    }
+
 
     let signInPath = '/signIn'
 
-    if(location.pathname !== DEFAULT_PATH)
+    if (location.pathname !== DEFAULT_PATH)
       signInPath = `${signInPath}/${ORIGINAL_PATH}=${location.pathname}`
 
     navigate(signInPath)
@@ -27,6 +32,6 @@ export const PrivateLayout = () => {
   }, [])
 
   return (
-    <MainLayout menuItems={menuItems}/>
+    <MainLayout menuItems={menuItems} />
   )
 }

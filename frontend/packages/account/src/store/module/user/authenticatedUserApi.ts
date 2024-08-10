@@ -5,7 +5,7 @@ import { apiBaseQuery } from '../apiBaseQuery'
 
 export default createApi({
   reducerPath: 'authenticatedUserApi',
-  baseQuery: apiBaseQuery({ baseUrl: 'v1' }),
+  baseQuery: apiBaseQuery({baseUrl: 'v1'}),
   endpoints: (builder) => ({
     fetchUser: builder.query<AuthenticatedUser, void>({
       query: () => 'me',

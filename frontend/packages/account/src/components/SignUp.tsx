@@ -1,7 +1,7 @@
 import { Button, Form, Input, Space } from 'antd'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { translate } from '@orbit/core'
+import { useTranslate } from '@orbit/core'
 import logo from '../asset/orbit.svg'
 import classNames from 'classnames'
 import { SignUpDto } from '../type/user.type'
@@ -9,6 +9,7 @@ import { SignUpDto } from '../type/user.type'
 export const SignUp = () => {
   const [loading] = useState<boolean>(false)
   const [form] = Form.useForm<SignUpDto>()
+  const t = useTranslate()
 
   return (
     <>
@@ -22,7 +23,7 @@ export const SignUp = () => {
           className='h-40 flex justify-center'
         />
         <span className={classNames('text-2xl font-bold')}>
-              {translate('sign_up_title')}
+              {t('sign_up_title')}
         </span>
       </Space>
       <Form
@@ -34,14 +35,14 @@ export const SignUp = () => {
           rules={[
             {
               required: true,
-              message: translate('name', 'is_required')
+              message: t('name', 'is_required')
             }
           ]}
         >
           <Input
             className='w-full'
             size='large'
-            placeholder={translate('name')}
+            placeholder={t('name')}
           />
         </Form.Item>
 
@@ -51,18 +52,18 @@ export const SignUp = () => {
           rules={[
             {
               required: true,
-              message: translate('name', 'is_required')
+              message: t('name', 'is_required')
             },
             {
               type: 'email',
-              message: translate('email', 'invalid_message')
+              message: t('email', 'invalid_message')
             }
           ]}
         >
           <Input
             className='w-full'
             size='large'
-            placeholder={translate('email')}
+            placeholder={t('email')}
           />
         </Form.Item>
 
@@ -71,14 +72,14 @@ export const SignUp = () => {
           rules={[
             {
               required: true,
-              message: translate('password', 'is_required')
+              message: t('password', 'is_required')
             }
           ]}
         >
           <Input.Password
             size='large'
             type='password'
-            placeholder={translate('password')}
+            placeholder={t('password')}
           />
         </Form.Item>
 
@@ -90,13 +91,13 @@ export const SignUp = () => {
             type='primary'
             htmlType='submit'
             className='flex w-full justify-center'>
-            {translate('sign_up')}
+            {t('sign_up')}
           </Button>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            {translate('you_are_a_member', '?')}
+            {t('you_are_a_member', '?')}
             <NavLink to='/signIn' className='text-indigo-500 ml-2 font-bold'>
-              {translate('sign_in')}
+              {t('sign_in')}
             </NavLink>
           </p>
 

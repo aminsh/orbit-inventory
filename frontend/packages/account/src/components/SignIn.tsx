@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ErrorMessage, HttpStatus, translate, useHttpRequest } from '@orbit/core'
+import { ErrorMessage, HttpStatus, useHttpRequest, useTranslate } from '@orbit/core'
 import { SignInResponse, SignUpDto } from '../type/user.type'
 import logo from '../asset/orbit.svg'
 import { useAuthentication } from '../hook/useAuthentication'
@@ -16,15 +16,16 @@ export const SignIn = () => {
     url: 'signIn',
     method: 'POST',
   })
-  const {saveToken, isAuthenticated, getUrlWithToken, getCallbackUrl, getOriginalPath} = useAuthentication()
+  const { saveToken, isAuthenticated, getUrlWithToken, getCallbackUrl, getOriginalPath } = useAuthentication()
   const navigate = useNavigate()
+  const t = useTranslate()
 
   useEffect(() => {
     onOpen()
   }, [])
 
   const onOpen = () => {
-    if(!isAuthenticated())
+    if (!isAuthenticated())
       return
     whenAuthenticated()
   }
@@ -32,7 +33,7 @@ export const SignIn = () => {
   const handleSignIn = async (data: SignUpDto) => {
     setErrors([])
 
-    const res = await send({body: data})
+    const res = await send({ body: data })
 
     if (res.status === HttpStatus.Success) {
       saveToken(res.response as SignInResponse)
@@ -40,7 +41,7 @@ export const SignIn = () => {
     }
 
     if (res.status === HttpStatus.Unauthorized)
-      setErrors([translate('unauthorized_error_message')])
+      setErrors([t('unauthorized_error_message')])
   }
 
   const whenAuthenticated = () => {
@@ -71,12 +72,12 @@ export const SignIn = () => {
         <span
           className={classNames('text-2xl font-bold')}
         >
-              {translate('sign_in_title')}
+          {t('sign_in_title')}
         </span>
       </Space>
 
       <ErrorMessage
-        title={translate('error_message_title')}
+        title={t('error_message_title')}
         message={errors}
         onClose={() => setErrors([])}
       />
@@ -88,25 +89,30 @@ export const SignIn = () => {
         <Form.Item
           className='mt-2'
           name='email'
-          rules={[{required: true, message: translate('auth_required_error_message', 'email')}]}
+          rules={[
+            {
+              required: true,
+              message: t('auth_required_error_message', 'email')
+            }
+          ]}
         >
           <Input
             className='w-full'
             size='large'
-            prefix={<UserOutlined className='site-form-item-icon'/>}
-            placeholder={translate('email')}
+            prefix={<UserOutlined className='site-form-item-icon' />}
+            placeholder={t('email')}
           />
         </Form.Item>
 
         <Form.Item
           name='password'
-          rules={[{required: true, message: translate('auth_required_error_message', 'password')}]}
+          rules={[{ required: true, message: t('auth_required_error_message', 'password') }]}
         >
           <Input.Password
             size='large'
-            prefix={<LockOutlined/>}
+            prefix={<LockOutlined />}
             type='password'
-            placeholder={translate('password')}
+            placeholder={t('password')}
           />
         </Form.Item>
 
@@ -118,13 +124,13 @@ export const SignIn = () => {
             type='primary'
             htmlType='submit'
             className='flex w-full justify-center'>
-            {translate('sign_in')}
+            {t('sign_in')}
           </Button>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            {translate('not_a_member', '?')}
+            {t('not_a_member', '?')}
             <NavLink to='/signup' className='text-indigo-500 ml-2 font-bold'>
-              {translate('sign_up', 'now')}
+              {t('sign_up', 'now')}
             </NavLink>
           </p>
 
