@@ -1,28 +1,15 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext } from 'react'
 import { Avatar, Tooltip } from 'antd'
-import { AuthenticatedUser } from '../type'
-import { useHttpRequest } from '../hook/useHttp.tsx'
+import { Configuration } from '../type'
+import { SharedContext } from './SharedContext.tsx'
 
 export const AuthenticatedUserDisplay: FC = () => {
-  const [currentUser, setCurrentUser] = useState<AuthenticatedUser>()
-  const [execute] = useHttpRequest<AuthenticatedUser, null>({
-    url: 'me',
-    method:'GET',
-  })
-
-  const fetch = async () => {
-    const user = await execute()
-    setCurrentUser(user.response ?? undefined)
-  }
-
-  useEffect(() => {
-    fetch()
-  }, [])
+  const {authenticatedUser} = useContext<Configuration>(SharedContext)
 
   return (
-    <Tooltip title={currentUser?.name}>
+    <Tooltip title={authenticatedUser?.name}>
       <Avatar style={{backgroundColor: '#8795de'}}>
-        {currentUser?.name.charAt(0)?.toUpperCase()}
+        {authenticatedUser?.name.charAt(0)?.toUpperCase()}
       </Avatar>
     </Tooltip>
   )

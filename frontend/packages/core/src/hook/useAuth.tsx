@@ -26,12 +26,8 @@ export const useAuth = () => {
     check: () => {
       const token = getToken()
 
-      if (token) {
-        configuration.token = token
-
-        if (!isTokenExpired(token))
-          return
-      }
+      if (token && !isTokenExpired(token)) 
+        return
 
       const url = new URL(configuration.authUrl as string)
       const state = {
