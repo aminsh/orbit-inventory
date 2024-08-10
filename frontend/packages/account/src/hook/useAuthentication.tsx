@@ -1,4 +1,4 @@
-import { useMemory } from '@orbit/core'
+import { isTokenExpired, setToken, useMemory } from '@orbit/core'
 import { SignInResponse } from '../type/user.type'
 import { ACCESS_TOKEN, AUTHENTICATION_TOKEN, CALLBACK_URL, ORIGINAL_PATH, TOKEN_TYPE } from '../constant'
 import { useSearchParams } from 'react-router-dom'
@@ -12,15 +12,28 @@ export const useAuthentication = () => {
   const getOriginalPath = () => searchParams.get(ORIGINAL_PATH)
 
   return {
-    saveToken: (token: SignInResponse) => memory.set(AUTHENTICATION_TOKEN, token),
+    saveToken: (token: SignInResponse) => {
+      memory.set(AUTHENTICATION_TOKEN, token)
+      setToken(token)
+    },
     getToken,
     isAuthenticated: () => {
       const token = getToken()
-      return !!token
+      if(!token)
+        return false
+
+      const expired = isTokenExpired(token)
+
+      if(expired)
+        return false
+
+      setToken(token)
+      
+      return true
     },
     getCallbackUrl,
     getOriginalPath,
-    getUrlWithToken: () =>  {
+    getUrlWithToken: () => {
       const token = getToken()
       const url = new URL(getCallbackUrl())
       url.searchParams.append(ACCESS_TOKEN, token?.accessToken ?? '')

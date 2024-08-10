@@ -3,11 +3,11 @@ import { httpRequest } from '../service/http-request'
 import { useState } from 'react'
 
 export type HttpHookResponse<TResponse, TBody> = [
-  (args: Partial<HttpRequest<TBody>>) => Promise<HttpResponse<TResponse>>,
+  (args?: Partial<HttpRequest<TBody>>) => Promise<HttpResponse<TResponse>>,
   boolean
 ]
 
-export const useHttpRequest = <TResponse extends object, TBody extends object>
+export const useHttpRequest = <TResponse extends object | null, TBody extends object | null>
 (args: Partial<HttpRequest<TBody>>): HttpHookResponse<TResponse, TBody> => {
   const [loading, setLoading] = useState<boolean>(false)
 

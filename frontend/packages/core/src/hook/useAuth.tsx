@@ -11,6 +11,7 @@ import {
 import { Token } from '../type'
 import { configuration } from '../configure'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { isTokenExpired } from '../service'
 
 export const useAuth = () => {
   const memory = useMemory()
@@ -27,7 +28,9 @@ export const useAuth = () => {
 
       if (token) {
         configuration.token = token
-        return
+
+        if (!isTokenExpired(token))
+          return
       }
 
       const url = new URL(configuration.authUrl as string)
@@ -40,19 +43,24 @@ export const useAuth = () => {
       location.href = url.toString()
     },
     callback: () => {
+      // eslint-disable-next-line no-debugger
+      debugger
       const accessToken = searchParams.get(ACCESS_TOKEN)
       const tokenType = searchParams.get(TOKEN_TYPE)
 
-      if(!accessToken)
+      if (!accessToken)
         return
 
-      if(!tokenType)
+      if (!tokenType)
         return
 
-      saveToken({
+      const token: Token = {
         accessToken,
         tokenType,
-      })
+      }
+
+      saveToken(token)
+      configuration.token = token
 
       const encodedState = searchParams.get(STATE)
       const state = encodedState

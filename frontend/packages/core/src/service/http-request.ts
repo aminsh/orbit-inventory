@@ -3,9 +3,13 @@ import { configuration } from '../configure.ts'
 
 export const httpRequest = async <TResponse extends object | null, TBody extends object | null>(args: HttpRequest<TBody>)
   : Promise<HttpResponse<TResponse>> => {
+
   const result = await fetch(`${configuration.baseUrl}/v1/${args.url}`, {
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': configuration.token
+        ? `${configuration.token.tokenType} ${configuration.token.accessToken}`
+        : '',
     },
     method: args.method,
     body: JSON.stringify(args.body),

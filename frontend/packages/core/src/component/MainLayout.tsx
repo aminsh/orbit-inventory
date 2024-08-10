@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom'
-import { Avatar, Button, Flex, Layout, Menu, theme } from 'antd'
+import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
 import { MenuItem } from '../type'
 import Logo from '../asset/orbit.svg'
-import { CSSProperties, useState, FC } from 'react'
+import { CSSProperties, FC, useState } from 'react'
+import { AuthenticatedUserDisplay } from './AuthenticatedUserDisplay.tsx'
 
 export type MainLayoutProps = {
   menuItems: MenuItem[]
@@ -41,7 +42,7 @@ export const MainLayout: FC<MainLayoutProps> = ({menuItems}: MainLayoutProps) =>
           />
         </Flex>
         <Flex align='center' justify='end' style={{width: '100%'}}>
-          <Avatar style={{backgroundColor: '#8795de'}}>K</Avatar>
+          <AuthenticatedUserDisplay/>
         </Flex>
       </Flex>
     </Header>
