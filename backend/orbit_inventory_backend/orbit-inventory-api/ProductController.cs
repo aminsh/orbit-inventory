@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nest;
 using orbit_inventory_core.application;
 using orbit_inventory_core.messaging;
+using orbit_inventory_core.read;
 using orbit_inventory_domain.service;
 using orbit_inventory_dto;
 
@@ -47,7 +48,7 @@ public class ProductController(
         var result = await client.GetAsync<ProductView>(
             id,
             g => g
-                .Index("orbit-product-view"));
+                .Index(ReadHelper.GetIndexNameOf<ProductView>()));
         return result.Source;
     }
 }

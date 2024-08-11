@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Nest;
+using orbit_inventory_core.read;
 using orbit_inventory_data;
 using orbit_inventory_domain.entity;
 using orbit_inventory_dto;
@@ -11,7 +11,7 @@ public class ProductViewConfiguration(ElasticClient client, OrbitDbContext dbCon
 {
     public async Task Configure()
     {
-        var indexName = "orbit-product-view";
+        var indexName = ReadHelper.GetIndexNameOf<ProductView>();
         var result = await client.Indices.CreateAsync(indexName, c =>
             c.Map(m => m.AutoMap<ProductView>()));
 

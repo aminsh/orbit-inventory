@@ -32,6 +32,7 @@ builder.Services.AddShared();
 builder.Services.AddSecurity();
 builder.Services.AddDomain();
 builder.Services.AddEvents();
+builder.Services.AddRead();
 
 var app = builder.Build();
 app.UseShared();

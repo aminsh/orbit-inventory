@@ -4,13 +4,13 @@ import { useEffect } from 'react'
 import { DEFAULT_PATH, ORIGINAL_PATH } from '../../constant'
 import { MainLayout } from '@orbit/core'
 import { menuItems } from '../../config/menuItems.tsx'
-import authenticatedUserApi from '../../store/module/user/authenticatedUserApi'
+import {useLazyFetchUserQuery} from '../../store/module/user/authenticatedUserApi'
 
 export const PrivateLayout = () => {
   const { isAuthenticated } = useAuthentication()
   const navigate = useNavigate()
   const location = useLocation()
-  const [fetchAuthenticatedUser] = authenticatedUserApi.useLazyFetchUserQuery()
+  const [fetchAuthenticatedUser] = useLazyFetchUserQuery()
 
   const onOpen = async () => {
     if (isAuthenticated()) {

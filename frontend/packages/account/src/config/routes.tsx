@@ -2,8 +2,8 @@ import { Route } from '@orbit/core'
 import { SignIn } from '../components/SignIn.tsx'
 import { SignUp } from '../components/SignUp.tsx'
 import { ExternalAuthentication } from '../components/ExternalAuthentication.tsx'
-import { Dashboard } from '../components/Dashboard.tsx'
-import { Settings } from '../components/Settings.tsx'
+import { Dashboard } from '../components/Dashboard'
+import { Profile } from '../components/Profile'
 
 export const routes: Route = {
   publicRoutes: [
@@ -13,6 +13,6 @@ export const routes: Route = {
   ],
   privateRoutes: [
     {path: '/', component: <Dashboard/>},
-    {path: '/profile', component: <Settings/>}
+    {path: '/profile', component: <Profile/>}
   ]
 }

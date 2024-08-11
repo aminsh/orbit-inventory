@@ -1,15 +1,30 @@
 import { Button, Form, Input, Space } from 'antd'
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useTranslate } from '@orbit/core'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { ErrorMessage, HttpStatus, useTranslate } from '@orbit/core'
 import logo from '../asset/orbit.svg'
 import classNames from 'classnames'
 import { SignUpDto } from '../type/user.type'
+import { useSignUpMutation } from 'src/store/module/user/authenticatedUserApi'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 export const SignUp = () => {
-  const [loading] = useState<boolean>(false)
   const [form] = Form.useForm<SignUpDto>()
   const t = useTranslate()
+  const [signUp, { isLoading }] = useSignUpMutation()
+  const navigate = useNavigate()
+  const [errors, setErrors] = useState<string[]>([])
+
+  const handleSignUp = async (dto: SignUpDto) => {
+    const { error } = await signUp(dto)
+
+    if (!error)
+      return navigate('/signIn')
+
+    if ((error as FetchBaseQueryError).status === HttpStatus.BadRequest) {
+      setErrors([(error as FetchBaseQueryError).data as string])
+    }
+  }
 
   return (
     <>
@@ -23,12 +38,18 @@ export const SignUp = () => {
           className='h-40 flex justify-center'
         />
         <span className={classNames('text-2xl font-bold')}>
-              {t('sign_up_title')}
+          {t('sign_up_title')}
         </span>
       </Space>
       <Form
         form={form}
+        onFinish={handleSignUp}
       >
+        <ErrorMessage
+          title={t('error_message_title')}
+          message={errors}
+        />
+
         <Form.Item
           className='mt-2'
           name='name'
@@ -85,12 +106,13 @@ export const SignUp = () => {
 
         <Form.Item className='mt-2'>
           <Button
-            loading={loading}
+            loading={isLoading}
             size='large'
             block
             type='primary'
             htmlType='submit'
-            className='flex w-full justify-center'>
+            className='flex w-full justify-center'
+          >
             {t('sign_up')}
           </Button>
 

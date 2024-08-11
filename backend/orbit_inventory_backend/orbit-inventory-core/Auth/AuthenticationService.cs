@@ -50,6 +50,17 @@ public class AuthenticationService(
         return entity;
     }
 
+    public async Task Update(int id , UserUpdateDto dto)
+    {
+        var entity = await userRepository.FindById(id);
+
+        if (entity == null)
+            throw new NotFoundException();
+
+        entity.Name = dto.Name;
+        entity.Email = dto.Email;
+    }
+
     private static string GetHashPassword(string password, byte[] salt)
     {
         return Convert.ToBase64String(KeyDerivation.Pbkdf2(

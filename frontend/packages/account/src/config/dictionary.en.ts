@@ -12,4 +12,7 @@ export const dictionaryEn: Record<string, string> = {
   name: 'Name',
   email: 'Email',
   password: 'Password',
+  save: 'Save',
+  profile: 'Profile',
+  profile_success_message: 'The profile updated successfully',
 }

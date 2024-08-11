@@ -3,19 +3,20 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ErrorMessage, HttpStatus, useHttpRequest, useTranslate } from '@orbit/core'
-import { SignInResponse, SignUpDto } from '../type/user.type'
+import { ErrorMessage, HttpStatus, useTranslate } from '@orbit/core'
+import { SignUpDto } from '../type/user.type'
 import logo from '../asset/orbit.svg'
 import { useAuthentication } from '../hook/useAuthentication'
 import { DEFAULT_PATH } from '../constant'
+import { useSignInMutation } from '../store/module/user/authenticatedUserApi'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 export const SignIn = () => {
   const [form] = Form.useForm<SignUpDto>()
   const [errors, setErrors] = useState<string[]>([])
-  const [send, loading] = useHttpRequest<SignInResponse, SignUpDto>({
-    url: 'signIn',
-    method: 'POST',
-  })
+
+  const [signIn, {isLoading}] = useSignInMutation()
+
   const { saveToken, isAuthenticated, getUrlWithToken, getCallbackUrl, getOriginalPath } = useAuthentication()
   const navigate = useNavigate()
   const t = useTranslate()
@@ -30,17 +31,17 @@ export const SignIn = () => {
     whenAuthenticated()
   }
 
-  const handleSignIn = async (data: SignUpDto) => {
+  const handleSignIn = async (dto: SignUpDto) => {
     setErrors([])
 
-    const res = await send({ body: data })
+    const {data, error} = await signIn(dto)
 
-    if (res.status === HttpStatus.Success) {
-      saveToken(res.response as SignInResponse)
+    if(!error) {
+      saveToken(data)
       return whenAuthenticated()
     }
 
-    if (res.status === HttpStatus.Unauthorized)
+    if ((error as FetchBaseQueryError).status === HttpStatus.Unauthorized)
       setErrors([t('unauthorized_error_message')])
   }
 
@@ -118,7 +119,7 @@ export const SignIn = () => {
 
         <Form.Item className='mt-2'>
           <Button
-            loading={loading}
+            loading={isLoading}
             size='large'
             block
             type='primary'

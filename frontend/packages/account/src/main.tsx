@@ -6,8 +6,8 @@ import { ConfigProvider, theme } from 'antd'
 import './output.css'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import './output.css'
 
-console.log(import.meta.env.VITE_BASE_URL)
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>

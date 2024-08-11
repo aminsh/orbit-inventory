@@ -13,3 +13,8 @@ export type SignInResponse = {
   accessToken: string
   tokenType: string
 }
+
+export type UserProfileDto = {
+  name: string
+  email: string
+}
