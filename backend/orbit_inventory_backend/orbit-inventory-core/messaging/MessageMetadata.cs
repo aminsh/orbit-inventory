@@ -8,5 +8,6 @@ public class MessageMetadata
 
 public enum MessageMetadataCategory
 {
-    Event
+    Event,
+    ReadMapping
 }

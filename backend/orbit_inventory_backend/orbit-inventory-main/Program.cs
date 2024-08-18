@@ -1,4 +1,3 @@
-using System.Globalization;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using orbit_inventory_core.messaging;
@@ -6,13 +5,13 @@ using orbit_inventory_core.Request;
 using orbit_inventory_core.Utils;
 using orbit_inventory_main.filters;
 using orbit_inventory_main.service_configuration;
-using orbit_inventory_read;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(o => o.AddPolicy("MyPolicy", build =>
 {
-    build.AllowAnyOrigin()
+    build
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader();
 }));
@@ -51,13 +50,6 @@ app.Use(async (context, next) =>
     }
 
     await next.Invoke();
-});
-
-app.MapPost("/elasticCofigure", async (
-    ProductViewConfiguration productViewConfiguration
-) =>
-{
-    await productViewConfiguration.Configure();
 });
 
 app.Run();

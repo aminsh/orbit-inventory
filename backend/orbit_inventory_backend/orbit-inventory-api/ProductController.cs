@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nest;
 using orbit_inventory_core.application;
+using orbit_inventory_core.Exception;
 using orbit_inventory_core.messaging;
 using orbit_inventory_core.read;
 using orbit_inventory_domain.service;
@@ -14,8 +14,8 @@ namespace orbit_inventory_api;
 public class ProductController(
     IUnitOfWork unitOfWork,
     ProductService productService,
-    ElasticClient client,
-    IEventBus eventBus)
+    IEventBus eventBus,
+    IReadService readService)
 {
     [HttpPost]
     public async Task<IdentityResponse> Create([FromBody] ProductDto dto)
@@ -43,12 +43,20 @@ public class ProductController(
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ProductView> GetById([FromRoute] int id)
+    public async Task<ProductView?> GetById([FromRoute] int id)
     {
-        var result = await client.GetAsync<ProductView>(
-            id,
-            g => g
-                .Index(ReadHelper.GetIndexNameOf<ProductView>()));
-        return result.Source;
+        var view = await
+            readService.FindById<ProductView>(id);
+
+        if (view == null)
+            throw new NotFoundException();
+
+        return view;
+    }
+
+    [HttpGet]
+    public Task<IReadPageableResponse<ProductView>> Get([FromQuery] ProductFindRequest request)
+    {
+        return readService.Find<ProductView, ProductFindRequest>(request);
     }
 }

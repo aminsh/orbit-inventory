@@ -18,11 +18,21 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="NEST" Version="7.17.5" />
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Elastic.Clients.Elasticsearch">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\elastic.clients.elasticsearch\8.15.0\lib\net8.0\Elastic.Clients.Elasticsearch.dll</HintPath>
+      </Reference>
+      <Reference Include="Elasticsearch.Net">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\elasticsearch.net\7.17.5\lib\netstandard2.1\Elasticsearch.Net.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
         <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.cryptography.keyderivation\8.0.6\lib\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+      </Reference>
+      <Reference Include="Newtonsoft.Json">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
       </Reference>
     </ItemGroup>
 

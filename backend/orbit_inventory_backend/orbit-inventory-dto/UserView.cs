@@ -1,12 +1,10 @@
-using Nest;
+using orbit_inventory_core.read;
 
 namespace orbit_inventory_dto;
 
-public class UserView
+public class UserView : IView
 {
     public int Id { get; set; }
-
-    [Keyword] public string Name { get; set; }
-
-    [Keyword] public string Email { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
 }

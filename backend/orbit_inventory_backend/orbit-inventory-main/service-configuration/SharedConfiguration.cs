@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Nest;
 using orbit_inventory_core.application;
+using orbit_inventory_core.Domain;
 using orbit_inventory_core.Request;
 using orbit_inventory_data;
 using orbit_inventory_main.Authentication;
-using orbit_inventory_read;
 
 namespace orbit_inventory_main.service_configuration;
 
@@ -14,7 +13,7 @@ public static class SharedConfiguration
     public static void AddShared(this IServiceCollection service)
     {
         service.AddScoped<IUnitOfWork, UnitOfWork>();
-        service.AddScoped(typeof(orbit_inventory_core.Domain.IRepository<>), typeof(Repository<>));
+        service.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         service.AddDbContext<OrbitDbContext>(option =>
             option
                 .UseNpgsql(
@@ -56,12 +55,6 @@ public static class SharedConfiguration
                 }
             });
         });
-        service.AddSingleton<ElasticClient>(_ =>
-        {
-            var uri = new Uri(Environment.GetEnvironmentVariable("ELASTIC_URL") ?? "");
-            return new ElasticClient(uri);
-        });
-        service.AddScoped<ProductViewConfiguration>();
     }
 
     public static void UseShared(this IApplicationBuilder app)

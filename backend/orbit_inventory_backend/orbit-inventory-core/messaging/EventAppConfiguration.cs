@@ -17,7 +17,7 @@ public static class EventAppConfiguration
             ]
         );
 
-        foreach (var handler in MessageMetadataScanner.GetAllServiceHandlers())
+        foreach (var handler in MessageMetadataScanner.GetAllServiceHandlers(MessageMetadataCategory.Event))
             service.AddScoped(handler);
 
         service.AddScoped<IEventBus, EventBusInMemory>();

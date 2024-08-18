@@ -26,9 +26,10 @@ public static class MessageMetadataScanner
         });
     }
 
-    public static IEnumerable<Type> GetAllServiceHandlers()
+    public static IEnumerable<Type> GetAllServiceHandlers(MessageMetadataCategory category)
     {
         return _messageMetadata
+            .Where(m => m.Category == category)
             .SelectMany(md => md.TypeHandlers.Values
                 .SelectMany(v => v))
             .Distinct();

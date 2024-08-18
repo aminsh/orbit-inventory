@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nest;
 using orbit_inventory_core.application;
 using orbit_inventory_core.Auth;
 using orbit_inventory_core.Exception;
@@ -18,7 +17,7 @@ public class UserController(
     AuthenticationService authenticationService,
     OrbitAuthenticationService orbitAuthenticationService,
     IUnitOfWork unitOfWork,
-    ElasticClient client)
+    IReadService readService)
 {
     [AllowAnonymous]
     [HttpPost("signUp")]
@@ -39,10 +38,12 @@ public class UserController(
     [HttpGet("me")]
     public async Task<UserView> Get()
     {
-        var response = await client.GetAsync<UserView>(
-            requestContext.UserId,
-            g => g.Index(ReadHelper.GetIndexNameOf<UserView>()));
-        return response.Source;
+        var view = await readService.FindById<UserView>(requestContext.UserId);
+
+        if (view == null)
+            throw new NotFoundException();
+        
+        return view;
     }
 
     [HttpPut("profile")]
