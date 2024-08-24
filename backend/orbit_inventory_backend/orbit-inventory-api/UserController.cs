@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using orbit_inventory_core.application;
 using orbit_inventory_core.Auth;
 using orbit_inventory_core.Exception;
+using orbit_inventory_core.messaging;
 using orbit_inventory_core.read;
-using orbit_inventory_core.Request;
+using orbit_inventory_core.request;
 using orbit_inventory_dto;
 using orbit_inventory_security;
 
@@ -17,7 +18,8 @@ public class UserController(
     AuthenticationService authenticationService,
     OrbitAuthenticationService orbitAuthenticationService,
     IUnitOfWork unitOfWork,
-    IReadService readService)
+    IReadService readService,
+    IEventBus eventBus)
 {
     [AllowAnonymous]
     [HttpPost("signUp")]
@@ -51,5 +53,6 @@ public class UserController(
     {
         await authenticationService.Update(requestContext.UserId, dto);
         await unitOfWork.Commit();
+        await eventBus.Send(new UserUpdatedEvent { Id = requestContext.UserId });
     }
 }

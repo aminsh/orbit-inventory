@@ -7,7 +7,7 @@ namespace orbit_inventory_read;
 public class ProductRequestResolver : IReadPageableRequestResolver<ProductView, ProductFindRequest> {
     public ISearchRequest<ProductView> Resolve(ProductFindRequest findRequest)
     {
-        var request = new SearchRequest<ProductView>();
+        var request = new SearchRequest<ProductView>(ReadHelper.GetIndexNameOf<ProductView>());
         
         findRequest.ResolveBasedProperties(request);
 
@@ -44,6 +44,8 @@ public class ProductRequestResolver : IReadPageableRequestResolver<ProductView, 
 
         if (must.Count > 0)
             request.Query = new BoolQuery { Must = must };
+        else
+            request.Query = new MatchAllQuery();
 
         return request;
     }

@@ -40,16 +40,6 @@ public class AuthenticationService(
         return entity;
     }
 
-    public async Task<User?> GetUser(int id)
-    {
-        var entity = await userRepository.FindById(id);
-
-        if (entity == null)
-            throw new NotFoundException();
-
-        return entity;
-    }
-
     public async Task Update(int id , UserUpdateDto dto)
     {
         var entity = await userRepository.FindById(id);

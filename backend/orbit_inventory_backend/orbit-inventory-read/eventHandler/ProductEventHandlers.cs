@@ -4,7 +4,7 @@ using orbit_inventory_data;
 using orbit_inventory_domain.entity;
 using orbit_inventory_dto;
 
-namespace orbit_inventory_read;
+namespace orbit_inventory_read.eventHandler;
 
 public class ProductEventHandlers(
     IReadService readService,
@@ -14,9 +14,9 @@ public class ProductEventHandlers(
         IEventHandler<ProductUpdatedEvent>,
         IEventHandler<ProductDeletedEvent>
 {
-    public async Task Handle(ProductCreatedEvent @event)
+    public async Task Handle(ProductCreatedEvent createdEvent)
     {
-        var entity = await orbitDbContext.Set<Product>().FindAsync(@event.Id);
+        var entity = await orbitDbContext.Set<Product>().FindAsync(createdEvent.Id);
 
         if (entity == null)
             return;
@@ -32,10 +32,12 @@ public class ProductEventHandlers(
 
         if (entity == null)
             return;
-        
-        var view = await viewAssembler.Assemble(entity);
 
-        await readService.Create(view);
+        await readService.Update<ProductView>(@event.Id, new
+        {
+            entity.Name,
+            entity.Upc
+        });
     }
 
     public Task Handle(ProductDeletedEvent @event)

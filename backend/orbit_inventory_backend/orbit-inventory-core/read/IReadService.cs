@@ -16,6 +16,9 @@ public interface IReadService
 
     Task Create<TView>(TView view)
         where TView : class, IView;
+
+    Task Update<TView>(int id, object updatedView)
+        where TView : class, IView;
 }
 
 public class ReadService(ISearchClient searchClient, IServiceProvider provider) : IReadService
@@ -36,12 +39,12 @@ public class ReadService(ISearchClient searchClient, IServiceProvider provider) 
         where TView : class, IView
     {
         var resolver = provider.GetService<IReadPageableRequestResolver<TView, TRequest>>();
-        
-        if(resolver == null) 
+
+        if (resolver == null)
             throw new NullReferenceException();
-        
+
         var searchRequest = resolver.Resolve(request);
-        
+
         var response = await searchClient.SearchAsync<TView>(searchRequest);
         return response.Resolve();
     }
@@ -55,5 +58,15 @@ public class ReadService(ISearchClient searchClient, IServiceProvider provider) 
         where TView : class, IView
     {
         await searchClient.IndexAsync(view, o => o.Index(ReadHelper.GetIndexNameOf<TView>()));
+    }
+
+    public Task Update<TView>(int id, object updatedView) 
+        where TView : class, IView
+    {
+        return searchClient.UpdateAsync(new UpdateRequest<TView, object>(
+            ReadHelper.GetIndexNameOf<TView>(), id)
+        {
+            Doc = updatedView
+        });
     }
 }
