@@ -3,13 +3,13 @@ import { Alert } from 'antd'
 
 export type ErrorMessageProps = {
   title: string
-  message: string | string[]
+  message: { message: string }[]
   onClose?: () => void
 }
 
-export const ErrorMessage: FC<ErrorMessageProps> = ({message, title, onClose}: ErrorMessageProps) => {
+export const ErrorMessage: FC<ErrorMessageProps> = ({ message, title, onClose }: ErrorMessageProps) => {
   const canShow = (): boolean => {
-    if (!message)
+    if (!message?.length)
       return false
 
     return !(Array.isArray(message) && message.length === 0)
@@ -23,13 +23,11 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({message, title, onClose}: E
           className='mb-2'
           message={title}
           description={
-            Array.isArray(message) ?
-              message.length > 1 ?
-                <ul>
-                  {message.map(msg => <li>{msg}</li>)}
-                </ul>
-                : message[0]
-              : message
+            [message].flat().length > 1 ?
+              <ul>
+                {message.map(msg => <li>{msg.message}</li>)}
+              </ul>
+              : message[0].message
           }
           type="error"
           showIcon

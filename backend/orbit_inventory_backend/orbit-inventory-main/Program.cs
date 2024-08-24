@@ -1,7 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using orbit_inventory_core.messaging;
-using orbit_inventory_core.Request;
+using orbit_inventory_core.request;
 using orbit_inventory_core.Utils;
 using orbit_inventory_main.filters;
 using orbit_inventory_main.service_configuration;

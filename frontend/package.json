@@ -6,8 +6,8 @@
   ],
   "scripts": {
     "core:build": "bun run --cwd packages/core build",
-    "account:start": "bun run --cwd packages/account dev",
-    "inventory:start": "bun run --cwd packages/inventory dev"
+    "account:dev": "bun run --cwd packages/account dev",
+    "inventory:dev": "bun run --cwd packages/inventory dev"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",

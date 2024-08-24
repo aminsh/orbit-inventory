@@ -1,4 +1,4 @@
-namespace orbit_inventory_core.Request;
+namespace orbit_inventory_core.request;
 
 public interface IOrbitRequestContext
 {

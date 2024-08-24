@@ -19,3 +19,13 @@ export type HttpResponse<TResponse = object> = {
   response: Nullable<TResponse>,
   error: Nullable<string | string[]>
 }
+
+export type PageableRequest = {
+  take: number
+  skip: number
+}
+
+export type PageableResponse<TData> = {
+  count: number
+  data: TData[]
+}

@@ -17,8 +17,8 @@ public class ProductService(
         var isUpcDuplicated = await productRepository.Query.AnyAsync(p => p.Upc == dto.Upc);
 
         if (isUpcDuplicated)
-            throw new BadRequestException("");
-
+            throw new BadRequestException("the_upc_is_duplicated",  nameof(dto.Upc));
+        
         var entity = new Product
         {
             Upc = dto.Upc,
@@ -41,7 +41,7 @@ public class ProductService(
         var isUpcDuplicated = await productRepository.Query.AnyAsync(p => p.Upc == dto.Upc && p.Id != id);
 
         if (isUpcDuplicated)
-            throw new BadRequestException("the_upc_is_duplicated");
+            throw new BadRequestException("the_upc_is_duplicated",  nameof(dto.Upc));
 
         entity.Upc = dto.Upc;
         entity.Name = dto.Name;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using orbit_inventory_core.Domain;
-using orbit_inventory_core.Request;
+using orbit_inventory_core.request;
 
 namespace orbit_inventory_data;
 
