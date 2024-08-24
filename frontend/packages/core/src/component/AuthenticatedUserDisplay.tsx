@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
 import { Avatar, Tooltip } from 'antd'
 import { Configuration } from '../type'
-import { SharedContext } from './SharedContext.tsx'
+import { SharedContext } from '../context/SharedContext.tsx'
 
 export const AuthenticatedUserDisplay: FC = () => {
   const {authenticatedUser} = useContext<Configuration>(SharedContext)

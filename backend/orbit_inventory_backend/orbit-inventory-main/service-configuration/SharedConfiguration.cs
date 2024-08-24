@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using orbit_inventory_core.application;
 using orbit_inventory_core.Domain;
-using orbit_inventory_core.Request;
+using orbit_inventory_core.request;
 using orbit_inventory_data;
 using orbit_inventory_main.Authentication;
 

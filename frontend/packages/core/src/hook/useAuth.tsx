@@ -9,14 +9,16 @@ import {
   TOKEN_TYPE
 } from '../constant'
 import { Token } from '../type'
-import { configuration } from '../configure'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { isTokenExpired } from '../service'
+import { useContext } from 'react'
+import { SharedContext } from '../context'
 
 export const useAuth = () => {
   const memory = useMemory()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const { authUrl } = useContext(SharedContext)
 
   const getToken = () => memory.get<Token>(AUTHENTICATION_TOKEN)
   const saveToken = (token: Token) => memory.set(AUTHENTICATION_TOKEN, token)
@@ -26,10 +28,10 @@ export const useAuth = () => {
     check: () => {
       const token = getToken()
 
-      if (token && !isTokenExpired(token)) 
+      if (token && !isTokenExpired(token))
         return
 
-      const url = new URL(configuration.authUrl as string)
+      const url = new URL(authUrl as string)
       const state = {
         originalPath: location.pathname,
       }
@@ -39,8 +41,6 @@ export const useAuth = () => {
       location.href = url.toString()
     },
     callback: () => {
-      // eslint-disable-next-line no-debugger
-      debugger
       const accessToken = searchParams.get(ACCESS_TOKEN)
       const tokenType = searchParams.get(TOKEN_TYPE)
 
@@ -56,7 +56,6 @@ export const useAuth = () => {
       }
 
       saveToken(token)
-      configuration.token = token
 
       const encodedState = searchParams.get(STATE)
       const state = encodedState
