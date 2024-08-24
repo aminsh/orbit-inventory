@@ -5,7 +5,7 @@ import { ErrorMessage, HttpStatus, useTranslate } from '@orbit/core'
 import logo from '../asset/orbit.svg'
 import classNames from 'classnames'
 import { SignUpDto } from '../type/user.type'
-import { useSignUpMutation } from 'src/store/module/user/authenticatedUserApi'
+import { useSignUpMutation } from '../store/module/user/authenticatedUserApi'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 export const SignUp = () => {

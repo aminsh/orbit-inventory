@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { setAuthenticatedUser } from './authenticatedUserSlice'
 import { apiBaseQuery } from '../apiBaseQuery'
 
-export default createApi({
+export const authenticatedUserApi =  createApi({
   reducerPath: 'authenticatedUserApi',
   baseQuery: apiBaseQuery({ baseUrl: 'v1' }),
   endpoints: (builder) => ({

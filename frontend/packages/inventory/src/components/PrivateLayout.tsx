@@ -1,9 +1,10 @@
 import { MainLayout, useAuth } from '@orbit/core'
+import { authenticatedUserApi } from '../store/module/user/authenticatedUserApi'
 import { menuItems } from '../config/menuItems'
 import { useEffect } from 'react'
-import authenticatedUser from '../store/module/user/authenticatedUserApi'
 
 export const PrivateLayout = () => {
+  authenticatedUserApi.useFetchUserQuery()
   const { check } = useAuth()
   
 
@@ -13,7 +14,6 @@ export const PrivateLayout = () => {
 
   return (
     <>
-      
       <MainLayout
         menuItems={menuItems}
       />
