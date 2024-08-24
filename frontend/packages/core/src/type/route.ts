@@ -8,4 +8,5 @@ export type Route = {
 export type RouteItem = {
   path: string
   component: React.ReactNode
+  children?: RouteItem[]
 }
