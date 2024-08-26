@@ -1,9 +1,11 @@
-import { BadRequestError, ErrorMessage, notify, useTranslate } from '@orbit/core'
+import { BadRequestError, ErrorMessage, useTranslate } from '@orbit/core'
 import { Form, Input, Modal } from 'antd'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useCreateProductMutation, useFetchProductQuery, useUpdateProductMutation } from '../../store/module/product/productApi'
+import { useCreateProductMutation, useUpdateProductMutation } from '../../store/module/product/productApi'
 import { Product, ProductDto } from 'src/type/product'
+import { useQuery } from '@apollo/client'
+import { ProductFindByIdQuery } from './product/product.graphql.ts'
 
 export const ProductEntry: FC = () => {
   const params = useParams<{ id?: string }>()
@@ -12,14 +14,17 @@ export const ProductEntry: FC = () => {
   const [open, setOpen] = useState<boolean>(true)
   const [form] = Form.useForm<Product>()
   const t = useTranslate()
-  const { data: entity } = useFetchProductQuery({ id: id as number }, )
   const [create, { isLoading: creating }] = useCreateProductMutation()
   const [update, { isLoading: updating }] = useUpdateProductMutation()
   const [errors, setErrors] = useState<BadRequestError['data']>([])
-
-  useEffect(() => {
-    form.setFieldsValue(entity ?? {})
-  }, [entity, form])
+  
+  useQuery(ProductFindByIdQuery, {
+    variables: {
+      id: id ?? 0,
+    },
+    skip: !id,
+    onCompleted: data => form.setFieldsValue(data?.productFindById),
+  })
 
   const save = async (data: Product) => {
     const dto: ProductDto = {
