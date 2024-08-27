@@ -22,7 +22,7 @@ public static class SharedConfiguration
                 .UseLazyLoadingProxies()
                 .UseSnakeCaseNamingConvention()
         );
-        service.AddSingleton<IOrbitRequestContext, OrbitHttpRequestContext>();
+        service.AddScoped<IOrbitRequestContext, OrbitHttpRequestContext>();
         service.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo

@@ -1,13 +1,13 @@
-namespace orbit_inventory_core.Auth;
+namespace orbit_inventory_core.auth;
 
-public class SignupDto
+public class SignUpDto
 {
     public string Email { get; set; }
     public string Name { get; set; }
     public string Password { get; set; }
 }
 
-public class SigninDto
+public class SignInDto
 {
     public string Email { get; set; }
     public string Password { get; set; }

@@ -1,7 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using orbit_inventory_core.messaging;
-using orbit_inventory_core.request;
 using orbit_inventory_core.Utils;
 using orbit_inventory_main.filters;
 using orbit_inventory_main.service_configuration;
@@ -32,24 +31,16 @@ builder.Services.AddSecurity();
 builder.Services.AddDomain();
 builder.Services.AddEvents();
 builder.Services.AddRead();
+builder.Services.AddAppGraphql();
 
 var app = builder.Build();
-app.UseShared();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseCors("MyPolicy");
+app.UserAppGraphql();
 
-app.Use(async (context, next) =>
-{
-    if (context.User.Identity is { IsAuthenticated: true })
-    {
-        var requestContext = context.RequestServices.GetService<IOrbitRequestContext>();
 
-        requestContext!.UserId = Convert.ToInt32(context.User.Claims.First(cl => cl.Type == "Id").Value);
-    }
-
-    await next.Invoke();
-});
 
 app.Run();

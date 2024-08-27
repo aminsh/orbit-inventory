@@ -38,7 +38,7 @@ public class ReadService(ISearchClient searchClient, IServiceProvider provider) 
         where TRequest : class, IReadPageableRequest
         where TView : class, IView
     {
-        var resolver = provider.GetService<IReadPageableRequestResolver<TView, TRequest>>();
+        var resolver = provider.GetRequiredService<IReadPageableRequestResolver<TView, TRequest>>();
 
         if (resolver == null)
             throw new NullReferenceException();

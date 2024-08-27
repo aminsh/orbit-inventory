@@ -8,8 +8,8 @@ public class ValidationFilter : IActionFilter
 {
     public void OnActionExecuting(ActionExecutingContext context)
     {
-        if (!context.ModelState.IsValid)
-            context.Result = new BadRequestObjectResult(context.ModelState.ToErrorMessage());
+        /*if (!context.ModelState.IsValid)
+            context.Result = new BadRequestObjectResult(context.ModelState.ToErrorMessage());*/
     }
 
     public void OnActionExecuted(ActionExecutedContext context)

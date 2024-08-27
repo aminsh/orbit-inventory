@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using orbit_inventory_core.Domain;
 using orbit_inventory_core.Exception;
 
-namespace orbit_inventory_core.Auth;
+namespace orbit_inventory_core.auth;
 
 public class AuthenticationService(
     IRepository<User> userRepository
 )
 {
-    public Task Create(SignupDto dto)
+    public Task Create(SignUpDto dto)
     {
         var salt = GenerateSalt();
         
@@ -25,7 +25,7 @@ public class AuthenticationService(
         return Task.FromResult(user.Id);
     }
 
-    public async Task<User> Signin(SigninDto dto)
+    public async Task<User> Signin(SignInDto dto)
     {
         var entity = await userRepository.FindOne(u => u.Email.ToLower() == dto.Email.ToLower());
         

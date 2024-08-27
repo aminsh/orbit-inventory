@@ -28,6 +28,9 @@
       <Reference Include="Elasticsearch.Net">
         <HintPath>..\..\..\..\..\..\.nuget\packages\elasticsearch.net\7.17.5\lib\netstandard2.1\Elasticsearch.Net.dll</HintPath>
       </Reference>
+      <Reference Include="GraphQL">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\graphql\8.0.2\lib\net6.0\GraphQL.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
         <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.cryptography.keyderivation\8.0.6\lib\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
       </Reference>

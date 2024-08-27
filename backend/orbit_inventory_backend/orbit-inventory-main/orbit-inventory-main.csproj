@@ -11,6 +11,12 @@
       <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
       <PackageReference Include="Elastic.Transport" Version="0.4.22" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="GraphQL" Version="8.0.2" />
+      <PackageReference Include="GraphQL.NewtonsoftJson" Version="8.0.1" />
+      <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="8.0.1" />
+      <PackageReference Include="GraphQL.Server.Ui.Altair" Version="8.0.1" />
+      <PackageReference Include="GraphQL.Server.Ui.Playground" Version="8.0.1" />
+      <PackageReference Include="GraphQL.SystemTextJson" Version="8.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
       <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
@@ -27,9 +33,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\orbit-inventory-api\orbit-inventory-api.csproj" />
+      <ProjectReference Include="..\orbit-inventory-core-test\orbit-inventory-core-test.csproj" />
       <ProjectReference Include="..\orbit-inventory-core\orbit-inventory-core.csproj" />
       <ProjectReference Include="..\orbit-inventory-data\orbit-inventory-data.csproj" />
       <ProjectReference Include="..\orbit-inventory-domain\orbit-inventory-domain.csproj" />
+      <ProjectReference Include="..\orbit-inventory-graphql\orbit-inventory-graphql.csproj" />
       <ProjectReference Include="..\orbit-inventory-read\orbit-inventory-read.csproj" />
       <ProjectReference Include="..\orbit-inventory-security\orbit-inventory-security.csproj" />
     </ItemGroup>

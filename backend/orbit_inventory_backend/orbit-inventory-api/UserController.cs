@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using orbit_inventory_core.application;
-using orbit_inventory_core.Auth;
+using orbit_inventory_core.auth;
 using orbit_inventory_core.Exception;
 using orbit_inventory_core.messaging;
 using orbit_inventory_core.read;
@@ -23,7 +23,7 @@ public class UserController(
 {
     [AllowAnonymous]
     [HttpPost("signUp")]
-    public async Task Signup([FromBody] SignupDto dto)
+    public async Task Signup([FromBody] SignUpDto dto)
     {
         await authenticationService.Create(dto);
         await unitOfWork.Commit();
@@ -31,7 +31,7 @@ public class UserController(
 
     [AllowAnonymous]
     [HttpPost("signIn")]
-    public async Task<AuthenticationResponse> Signin([FromBody] SigninDto dto)
+    public async Task<AuthenticationResponse> Signin([FromBody] SignInDto dto)
     {
         var user = await authenticationService.Signin(dto);
         return orbitAuthenticationService.Create(user);

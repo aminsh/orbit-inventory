@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using orbit_inventory_core.Auth;
+using orbit_inventory_core.auth;
 using orbit_inventory_security;
 
 namespace orbit_inventory_main.service_configuration;
