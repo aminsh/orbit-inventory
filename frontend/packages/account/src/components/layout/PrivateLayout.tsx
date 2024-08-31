@@ -4,20 +4,26 @@ import { useEffect } from 'react'
 import { DEFAULT_PATH, ORIGINAL_PATH } from '../../constant'
 import { MainLayout } from '@orbit/core'
 import { menuItems } from '../../config/menuItems.tsx'
-import {useLazyFetchUserQuery} from '../../store/module/user/authenticatedUserApi'
+import { useAppDispatch } from '../../store/index.ts'
+import { useQuery } from '@apollo/client'
+import { AuthenticatedUserQueryDocument } from '../../graphql/profile.graphql'
+import { setAuthenticatedUser } from '../../store/module/user/authenticatedUserSlice'
 
 export const PrivateLayout = () => {
   const { isAuthenticated } = useAuthentication()
   const navigate = useNavigate()
   const location = useLocation()
-  const [fetchAuthenticatedUser] = useLazyFetchUserQuery()
+  const dispatch = useAppDispatch()
+  useQuery(AuthenticatedUserQueryDocument, {
+    onCompleted: data => {
+      dispatch(setAuthenticatedUser(data.authenticatedUser))
+    },
+    skip: !isAuthenticated()
+  })
 
   const onOpen = async () => {
-    if (isAuthenticated()) {
-      await fetchAuthenticatedUser()
+    if(isAuthenticated())
       return
-    }
-
 
     let signInPath = '/signIn'
 
@@ -29,7 +35,7 @@ export const PrivateLayout = () => {
 
   useEffect(() => {
     onOpen()
-  }, [])
+  })
 
   return (
     <MainLayout menuItems={menuItems} />

@@ -1,29 +1,24 @@
 import { Button, Form, Input, Space } from 'antd'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ErrorMessage, HttpStatus, useTranslate } from '@orbit/core'
+import { ErrorMessage, ErrorMessageProps, useTranslate } from '@orbit/core'
 import logo from '../asset/orbit.svg'
 import classNames from 'classnames'
 import { SignUpDto } from '../type/user.type'
 import { useSignUpMutation } from '../store/module/user/authenticatedUserApi'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 export const SignUp = () => {
   const [form] = Form.useForm<SignUpDto>()
   const t = useTranslate()
   const [signUp, { isLoading }] = useSignUpMutation()
   const navigate = useNavigate()
-  const [errors, setErrors] = useState<string[]>([])
+  const [errors, setErrors] = useState<ErrorMessageProps['message'][]>([])
 
   const handleSignUp = async (dto: SignUpDto) => {
     const { error } = await signUp(dto)
 
     if (!error)
       return navigate('/signIn')
-
-    if ((error as FetchBaseQueryError).status === HttpStatus.BadRequest) {
-      setErrors([(error as FetchBaseQueryError).data as string])
-    }
   }
 
   return (

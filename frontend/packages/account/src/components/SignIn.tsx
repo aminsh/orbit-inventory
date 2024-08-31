@@ -1,21 +1,22 @@
-import { Button, Form, Input, Space } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { useMutation } from '@apollo/client'
+import { ErrorMessage, useTranslate } from '@orbit/core'
+import { Button, Form, Input, Space } from 'antd'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ErrorMessage, HttpStatus, useTranslate } from '@orbit/core'
-import { SignUpDto } from '../type/user.type'
 import logo from '../asset/orbit.svg'
+import { DEFAULT_PATH, UNAUTHORIZED_ERROR_CODE } from '../constant'
+import { SignInMutationDocument } from '../graphql/auth.graphql'
 import { useAuthentication } from '../hook/useAuthentication'
-import { DEFAULT_PATH } from '../constant'
-import { useSignInMutation } from '../store/module/user/authenticatedUserApi'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { SignUpDto } from '../type/user.type'
 
 export const SignIn = () => {
   const [form] = Form.useForm<SignUpDto>()
-  const [errors, setErrors] = useState<string[]>([])
-
-  const [signIn, {isLoading}] = useSignInMutation()
+  const [errors, setErrors] = useState<{message: string}[]>([])
+  const [signIn, { loading }] = useMutation(SignInMutationDocument, {
+    errorPolicy: 'all',
+  })
 
   const { saveToken, isAuthenticated, getUrlWithToken, getCallbackUrl, getOriginalPath } = useAuthentication()
   const navigate = useNavigate()
@@ -34,15 +35,19 @@ export const SignIn = () => {
   const handleSignIn = async (dto: SignUpDto) => {
     setErrors([])
 
-    const {data, error} = await signIn(dto)
+    const { data, errors } = await signIn({
+      variables: {
+        input: dto,
+      },
+    })
 
-    if(!error) {
-      saveToken(data)
+    if (!errors) {
+      data?.signIn && saveToken(data?.signIn)
       return whenAuthenticated()
     }
 
-    if ((error as FetchBaseQueryError).status === HttpStatus.Unauthorized)
-      setErrors([t('unauthorized_error_message')])
+    if(errors[0].extensions?.code === UNAUTHORIZED_ERROR_CODE)
+      setErrors([{message: t('unauthorized_error_message')}])
   }
 
   const whenAuthenticated = () => {
@@ -119,7 +124,7 @@ export const SignIn = () => {
 
         <Form.Item className='mt-2'>
           <Button
-            loading={isLoading}
+            loading={loading}
             size='large'
             block
             type='primary'

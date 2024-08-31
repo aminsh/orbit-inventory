@@ -30,7 +30,7 @@ export const createApolloClient = ({GraphqlURL, GraphQLWsURL}: CreateApolloClien
     }
   }))
 
-  const errorLink = onError(({graphQLErrors}) => {
+  const errorLink = onError(({graphQLErrors, operation, forward,networkError}) => {
     if (graphQLErrors)
       graphQLErrors.forEach(({message}) => {
         if (message === 'Unauthorized') {

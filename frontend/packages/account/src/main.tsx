@@ -7,9 +7,17 @@ import './output.css'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import './output.css'
+import { createApolloClient } from '@orbit/core'
+import { ApolloProvider } from '@apollo/client'
+
+const apolloClient = createApolloClient({
+  GraphqlURL: import.meta.env.VITE_GRAPHQL_URL,
+  GraphQLWsURL: import.meta.env.VITE_GRAPHQL_WS_URL,
+})
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <ConfigProvider
         theme={{ algorithm: theme.defaultAlgorithm }}
@@ -18,5 +26,6 @@ createRoot(document.getElementById('root')!).render(
         <App />
       </ConfigProvider>
     </Provider>
-  </React.StrictMode>,
+  </ApolloProvider>
+  </React.StrictMode >,
 )

@@ -23,3 +23,6 @@ type KeyValue = {
 }
 export type GQLResponseDocument<TView, TKey extends string, TVariables = KeyValue> = TypedDocumentNode<GQLResponse<TView, TKey>, TVariables>
 export type GQLPageableResponseDocument<TView, TKey extends string, TExtraRequest = KeyValue> = TypedDocumentNode<GQLPageableResponse<TView, TKey>, GQLPageableRequest<TExtraRequest>>
+export type GQLInput<TVariables = KeyValue> = {
+  input: TVariables
+}
