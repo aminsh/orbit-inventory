@@ -1,8 +1,7 @@
 using GraphQL;
 using GraphQL.Types;
-using orbit_inventory_core.auth;
-using orbit_inventory_core.request;
 using orbit_inventory_core.Utils;
+using orbit_inventory_dto;
 using orbit_inventory_graphql;
 
 namespace orbit_inventory_main.service_configuration;
@@ -13,7 +12,7 @@ public static class GraphqlConfiguration
     {
         service.AddGraphQL(b => b
             .AddAuthorizationRule()
-            .AddSchema<UserSchema>()
+            .AddSchema<OrbitSchema>()
             .AddGraphTypes(AssemblyUtils.Get("orbit-inventory-graphql"))
             .AddSystemTextJson()
         );

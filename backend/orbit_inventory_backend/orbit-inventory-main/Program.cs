@@ -41,6 +41,4 @@ app.MapControllers();
 app.UseCors("MyPolicy");
 app.UserAppGraphql();
 
-
-
 app.Run();
